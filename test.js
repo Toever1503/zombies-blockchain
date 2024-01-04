@@ -1,0 +1,1 @@
+console.log("wallet key: ", process.env.wallet_seed)

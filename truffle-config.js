@@ -48,6 +48,12 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    bscscan: "_"
+  },
   /**
    * Networks define how you connect to your ethereum client and let you set the
    * defaults web3 uses to send transactions. If you don't specify one truffle
@@ -104,14 +110,23 @@ module.exports = {
     //   gas: 9500000
     // },
     sepolia: {
-      provider: () => new HDWalletProvider(MNEMONIC, `https://network.io`),
+      provider: () => new HDWalletProvider("MNEMONIC", `https://network.io`),
       network_id: 11155111, // Sepolia's network ID
       gas: 4000000, // Adjust the gas limit as per your requirements
       gasPrice: 70000000000, // Set the gas price to an appropriate value
       confirmations: 2, // Set the number of confirmations needed for a transaction
       timeoutBlocks: 200, // Set the timeout for transactions
       skipDryRun: true // Skip the dry run option
-    }
+    },
+    bnbtestnet: {
+      provider: () => {
+        return new HDWalletProvider(process.env.wallet_seed, `https://data-seed-prebsc-1-s1.bnbchain.org:8545`)
+      },
+      network_id: 97,
+      confirmations: 10,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
   },
 
   // Set default mocha options here, use special reporters, etc.
